@@ -1,0 +1,36 @@
+html{
+    box-sizing: border-box;
+    height: 100%;
+
+    overflow-x: hidden;
+}
+
+body{
+    align-items: center;
+    background: linear-gradient(320deg, #622041, #331f76);
+    background-attachment: fixed;
+
+    background-repeat: repeat-x;
+    display: flex;
+    font-family: 'Roboto', sans-serif;
+}
+
+#tagDir{
+    background-color: rgb(124, 124, 224);
+}
+
+#linhaDir{
+    background-color: rgb(210, 86, 86);
+}
+
+#palavraDir{
+    background-color: rgb(103, 214, 95);
+}
+
+#tagAss{
+    background-color: rgb(124, 124, 224);
+}
+
+#palavraAss{
+    background-color: rgb(103, 214, 95);
+}

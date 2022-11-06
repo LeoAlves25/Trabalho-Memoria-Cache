@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trabalho Memória</title>
+
+    <link rel="stylesheet" href="./css/bootstrap.min.css">
+    <link rel="stylesheet" href="./css/sweetalert2.min.css">
+    <link rel="stylesheet" href="./css/custom.css">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <script src="./js/bootstrap.min.js"></script>
+    <script src="./js/sweetalert2.min.js"></script>
+</head>
+
+<body class="row justify-content-center">
+    <section class="row col-md-7 m-5">
+        <div class="form-control">
+            <div class="row justify-content-around">
+                <h1 class="tittle col-md-8">Mapeamento Cache</h1>
+                <button class="btn btn-secondary col-md-3" onclick="acesso()">Acesso Memória</button>
+            </div>
+
+            <br>
+
+            <div id="infoDados">
+                <div class="row">
+                    <div class="col-md-6">
+                        <label for="txtMP">Memória Principal</label>
+                        <input type="text" class="form-control" id="txtMP" placeholder="Tamanho da memória princial">
+                    </div>
+                    <div class="col-md-6">
+                        <label for="txtCache">Cache</label>
+                        <input type="text" class="form-control" id="txtCache" placeholder="Tamanho da memória cache">
+                    </div>
+                </div>
+
+                <br>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <label for="txtPalavra">Palavras</label>
+                        <input type="text" class="form-control" id="txtPalavra" placeholder="Quantidade de palavras por linha">
+                    </div>
+                    <div class="col-md-6">
+                        <label for="textRA">R.A.</label>
+                        <input type="text" class="form-control" id="txtRA" placeholder="Endereço (Hexadecimal)">
+                    </div>
+                </div>
+
+                <br>
+
+                <div class="row justify-content-center">
+                    <div class="row">
+                        <button class="btn btn-primary" onclick="consultaDireta()">Mapeamento Direto</button>
+                    </div>
+                </div>
+                <br>
+                <div class="row justify-content-center">
+                    <div class="row">
+                        <button class="btn btn-primary" onclick="consultaAssociativa()">Mapeamento Associativo</button>
+                    </div>
+                </div>
+            </div>
+
+            <br>
+    
+            <div id="resultDadosDireto" class="row justify-content-center d-none">
+                <h3 class="tittle">Resultados</h3>
+
+                <div class="row col-md-10">
+                    <div id="tagDir" class=" border border-dark text-center text-white">
+                    </div>
+
+                    <div id="linhaDir" class=" border border-dark text-center text-white">
+                    </div>
+
+                    <div id="palavraDir" class="border border-dark text-center text-white">
+                    </div>
+                </div>
+
+                <br>
+
+                <div class="col-md-10 rounded border border-secondary mt-4">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="m-2">
+                                <h4>Tags</h4>
+                                <div>
+                                    <i class="col-5">Quantidade de tags: <i id="qtdTagsDir"></i></i>
+                                    <br>
+                                    <i class="col-5">Quantidade de bits: <i id="bitsTagsDir"></i></i>
+                                    <br>
+                                    <i class="col-5">Valor em Hexadecimal: <i id="hexTagsDir"></i></i>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="m-2">
+                                <h4>Linhas</h4>
+                                <div>
+                                    <i class="col-5">Quantidade de linhas: <i id="qtdLinhasDir"></i></i>
+                                    <br>
+                                    <i class="col-5">Quantidade de bits: <i id="bitsLinhasDir"></i></i>
+                                    <br>
+                                    <i class="col-5">Valor em Hexadecimal: <i id="hexLinhasDir"></i></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <br>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="m-2">
+                                <h4>Palavras</h4>
+                                <div>
+                                    <i class="col-5">Quantidade de palavras: <i id="qtdPalavrasDir"></i></i>
+                                    <br>
+                                    <i class="col-5">Quantidade de bits: <i id="bitsPalavrasDir"></i></i>
+                                    <br>
+                                    <i class="col-5">Valor em Hexadecimal: <i id="hexPalavrasDir"></i></i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="m-2">
+                                <h4>Endereço cache</h4>
+                                <div>
+                                    <i class="col-5">Binário: <i id="endCacheBinDir"></i></i>
+                                    <br>
+                                    <i class="col-5">Hexadecimal: <i id="endCacheHexDir"></i></i>                           
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="row justify-content-center m-3">
+                    <div class="row">
+                        <button class="btn btn-primary" onClick="window.location.reload();">Nova consulta</button>
+                    </div>
+                </div>
+            </div>
+
+            <div id="resultDadosAssociativo" class="row justify-content-center d-none">
+                <h3 class="tittle">Resultados</h3>
+
+                <div class="row col-md-10">
+                    <div id="tagAss" class="border border-dark text-center text-white">
+                    </div>
+
+                    <div id="palavraAss" class="border border-dark text-center text-white">
+                    </div>
+                </div>
+
+                <br>
+
+                <div class="col-md-10 rounded border border-secondary mt-4">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="m-2">
+                                <h4>Tags</h4>
+                                <div>
+                                    <i class="col-5">Quantidade de tags: <i id="qtdTagsAss"></i></i>
+                                    <br>
+                                    <i class="col-5">Quantidade de bits: <i id="bitsTagsAss"></i></i>
+                                    <br>
+                                    <i class="col-5">Valor em Hexadecimal: <i id="hexTagsAss"></i></i>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="m-2">
+                                <h4>Palavras</h4>
+                                <div>
+                                    <i class="col-5">Quantidade de palavras: <i id="qtdPalavrasAss"></i></i>
+                                    <br>
+                                    <i class="col-5">Quantidade de bits: <i id="bitsPalavrasAss"></i></i>
+                                    <br>
+                                    <i class="col-5">Valor em Hexadecimal: <i id="hexPalavrasAss"></i></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <br>
+
+                    <div class="m-2">
+                        <h4>Endereço cache</h4>
+                        <div>
+                            <i class="col-5">Binário: <i id="endCacheBinAss"></i></i>
+                            <br>
+                            <i class="col-5">Hexadecimal: <i id="endCacheHexAss"></i></i>                           
+                        </div>
+                    </div>
+
+                </div>
+                
+                <div class="row justify-content-center m-3">
+                    <div class="row">
+                        <button class="btn btn-primary" onClick="window.location.reload();">Nova consulta</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="row col-md-7 justify-content-center text-center">
+        <i class="text-white">Feito por <a target="_blank" class="text-white" href="https://github.com/LeoAlves25">Leonardo Castro Alves</a></i>
+    </footer>
+    
+    <script src="./js/calculos.js"></script>
+</body>
+
+
+</html>
